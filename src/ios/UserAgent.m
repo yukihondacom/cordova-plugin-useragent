@@ -16,11 +16,11 @@
 - (void)set: (CDVInvokedUrlCommand*)command
 {
     id newUserAgent = [command argumentAtIndex:0];
+    self.webView.customUserAgent = newUserAgent;
     
-    self.dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
-    [self.dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
-        self.webView.customUserAgent = newUserAgent;
-    }];
+    // self.dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
+    // [self.dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
+    // }];
     
     NSString* callbackId = command.callbackId;
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
