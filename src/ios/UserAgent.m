@@ -20,12 +20,11 @@
     self.dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
     [self.dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
         self.webView.customUserAgent = newUserAgent;
-
-        NSString* callbackId = command.callbackId;
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     }];
-
+    
+    NSString* callbackId = command.callbackId;
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
 
 - (void)reset: (CDVInvokedUrlCommand*)command
