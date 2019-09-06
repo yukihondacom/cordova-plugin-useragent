@@ -1,5 +1,4 @@
 #import "UserAgent.h"
-#import "CDVViewController.h"
 #import <Cordova/CDVPluginResult.h>
 
 @implementation UserAgent
