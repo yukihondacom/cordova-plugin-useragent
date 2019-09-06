@@ -26,6 +26,9 @@
     //     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
     //     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     // }];
+    NSString* newUserAgent = [command argumentAtIndex:0];
+    AppDelegate appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.viewController.baseUserAgent = newUserAgent;
     
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
         NSString* newUserAgent = [command argumentAtIndex:0];
