@@ -17,9 +17,8 @@
 {
     id newUserAgent = [command argumentAtIndex:0];
     
-    WKWebView* dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
-    [dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
-        //dummyWebView.customUserAgent = newUserAgent; // evaluateJavaScript()が完了するまでdummyWebViewが開放されないよう、クロージャ内で参照しておく
+    self.dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
+    [self.dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
         self.webView.customUserAgent = newUserAgent;
 
         NSString* callbackId = command.callbackId;
