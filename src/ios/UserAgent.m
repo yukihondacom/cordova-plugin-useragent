@@ -1,6 +1,8 @@
 #import "UserAgent.h"
 #import <Cordova/CDVPluginResult.h>
 
+@import WebKit;
+
 @implementation UserAgent
 
 - (void)get: (CDVInvokedUrlCommand*)command
@@ -16,12 +18,17 @@
 - (void)set: (CDVInvokedUrlCommand*)command
 {
     id newUserAgent = [command argumentAtIndex:0];
-    self.webView.customUserAgent = newUserAgent;
-    super.viewController.baseUserAgent = newUserAgent;
+    
+    WKWebView* dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
+    [dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
+        dummyWebView = nil; // evaluateJavaScript()が完了するまでdummyWebViewが開放されないよう、クロージャ内で参照しておく
+        self.webView.customUserAgent = newUserAgent
 
-    NSString* callbackId = command.callbackId;
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+        NSString* callbackId = command.callbackId;
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+    }];
+
 }
 
 - (void)reset: (CDVInvokedUrlCommand*)command
