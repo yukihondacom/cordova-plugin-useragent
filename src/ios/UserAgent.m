@@ -18,6 +18,9 @@
     id newUserAgent = [command argumentAtIndex:0];
     self.webView.customUserAgent = newUserAgent;
     
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
     NSString* callbackId = command.callbackId;
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
