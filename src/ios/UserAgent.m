@@ -1,5 +1,7 @@
 #import "UserAgent.h"
+#import "AppDelegate.h"
 #import <Cordova/CDVPluginResult.h>
+#import <Cordova/CDVViewController.h>
 #import <Cordova/CDVUserAgentUtil.h>
 
 @implementation UserAgent
@@ -27,7 +29,7 @@
     //     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     // }];
     NSString* newUserAgent = [command argumentAtIndex:0];
-    AppDelegate appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.viewController.baseUserAgent = newUserAgent;
     
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
