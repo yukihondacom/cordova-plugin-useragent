@@ -19,7 +19,7 @@
     id newUserAgent = [command argumentAtIndex:0];
     self.webView.customUserAgent = newUserAgent;
     
-    [CDVViewController setBaseUserAgent:newUserAgent];
+    [super.viewController setBaseUserAgent:newUserAgent];
 
     NSString* callbackId = command.callbackId;
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
