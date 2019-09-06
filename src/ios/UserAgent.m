@@ -21,8 +21,8 @@
     
     WKWebView* dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
     [dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
-        dummyWebView = nil; // evaluateJavaScript()が完了するまでdummyWebViewが開放されないよう、クロージャ内で参照しておく
-        self.webView.customUserAgent = newUserAgent
+        dummyWebView.customUserAgent = newUserAgent; // evaluateJavaScript()が完了するまでdummyWebViewが開放されないよう、クロージャ内で参照しておく
+        self.webView.customUserAgent = newUserAgent;
 
         NSString* callbackId = command.callbackId;
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
