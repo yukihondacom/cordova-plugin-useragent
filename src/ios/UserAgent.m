@@ -23,11 +23,11 @@
     [dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
         id newUserAgent = [command argumentAtIndex:0];
         self.webView.customUserAgent = newUserAgent;
-        
-        NSString* callbackId = command.callbackId;
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     }];
+    
+    NSString* callbackId = command.callbackId;
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     // [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
     //     NSString* newUserAgent = [command argumentAtIndex:0];
     //     AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
