@@ -25,8 +25,9 @@
         self.webView.customUserAgent = newUserAgent;
     }];
     
+    id replaceUserAgent = [command argumentAtIndex:0];
     NSString* callbackId = command.callbackId;
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:replaceUserAgent];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     // [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
     //     NSString* newUserAgent = [command argumentAtIndex:0];
