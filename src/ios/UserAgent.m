@@ -18,17 +18,6 @@
 
 - (void)set: (CDVInvokedUrlCommand*)command
 {
-    // WKWebView* dummyWebView = [WKWebView new];
-    // dummyWebView = [WKWebView new]; // デフォルトのUserAgentを取得するための別インスタンスを作る
-    // [dummyWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
-        // id newUserAgent = [command argumentAtIndex:0];
-        // self.webView.customUserAgent = newUserAgent;
-    // }];
-    
-    // id replaceUserAgent = [command argumentAtIndex:0];
-    // NSString* callbackId = command.callbackId;
-    // CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
-    // [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
         NSString* newUserAgent = [command argumentAtIndex:0];
         [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
@@ -38,16 +27,6 @@
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     }];
-    
-    // [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError* error) {
-    //     id newUserAgent = [command argumentAtIndex:0];
-    //     self.webView.customUserAgent = newUserAgent;
-        
-    //     NSString* callbackId = command.callbackId;
-    //     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
-    //     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-    // }];
-    
 }
 
 - (void)reset: (CDVInvokedUrlCommand*)command
