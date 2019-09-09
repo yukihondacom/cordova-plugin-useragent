@@ -31,9 +31,6 @@
     // [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
         NSString* newUserAgent = [command argumentAtIndex:0];
-        AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        appDelegate.viewController.baseUserAgent = newUserAgent;
-        self.webView.customUserAgent = (UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? "") + "/" + newUserAgent;
         [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
         [CDVUserAgentUtil releaseLock:&lockToken];
         
