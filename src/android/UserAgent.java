@@ -12,6 +12,10 @@ import org.json.JSONObject;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+
 public class UserAgent extends CordovaPlugin {
 
         public WebSettings settings;
@@ -37,6 +41,10 @@ public class UserAgent extends CordovaPlugin {
                try {
                   if (action.equals("set")) {
                      String text = args.getString(0);
+                     // インスタンスを取得する
+                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                     // データを保存する
+                     sp.edit().putString("UserAgent", text).commit();
                      settings.setUserAgentString(text);
                      callbackContext.success(settings.getUserAgentString());
                      return true;
