@@ -44,7 +44,7 @@ public class UserAgent extends CordovaPlugin {
                   if (action.equals("set")) {
                      String text = args.getString(0);
                      // インスタンスを取得する
-                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
                      // データを保存する
                      sp.edit().putString("UserAgent", text).commit();
                      settings.setUserAgentString(text);
