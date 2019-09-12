@@ -12,9 +12,11 @@ import org.json.JSONObject;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.content.Context;
 
 public class UserAgent extends CordovaPlugin {
 
