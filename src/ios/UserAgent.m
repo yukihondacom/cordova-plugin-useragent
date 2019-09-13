@@ -20,8 +20,7 @@
 {
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
         NSString* newUserAgent = [command argumentAtIndex:0];
-//        self.webView.customUserAgent = newUserAgent;
-        super.webView.customUserAgent = newUserAgent;
+        self.webView.customUserAgent = newUserAgent;
         [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
         [CDVUserAgentUtil releaseLock:&lockToken];
         
