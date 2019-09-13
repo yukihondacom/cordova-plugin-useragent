@@ -20,9 +20,13 @@
 {
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
         NSString* newUserAgent = [command argumentAtIndex:0];
-        self.webView.customUserAgent = newUserAgent;
+//        self.webView.customUserAgent = newUserAgent;
+        super.webView.customUserAgent = newUserAgent;
         [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
         [CDVUserAgentUtil releaseLock:&lockToken];
+        
+        NSDictionary* dict = [[NSDictionary alloc] initWithObjectsAndKeys:newUserAgent, @"Cordova-User-Agent", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:dict];        
         
         NSString* callbackId = command.callbackId;
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
