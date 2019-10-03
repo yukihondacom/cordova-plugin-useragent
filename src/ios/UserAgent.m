@@ -18,14 +18,15 @@
 
 - (void)set: (CDVInvokedUrlCommand*)command
 {
+    NSString* replaceUserAgent = [command argumentAtIndex:0];
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:replaceUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
     [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
         NSString* newUserAgent = [command argumentAtIndex:0];
         self.webView.customUserAgent = newUserAgent;
         [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
         [CDVUserAgentUtil releaseLock:&lockToken];
-        
-        // NSDictionary* dict = [[NSDictionary alloc] initWithObjectsAndKeys:newUserAgent, @"Cordova-User-Agent", nil];
-        // [[NSUserDefaults standardUserDefaults] registerDefaults:dict];        
         
         NSString* callbackId = command.callbackId;
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
