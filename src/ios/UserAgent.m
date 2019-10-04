@@ -18,20 +18,23 @@
 
 - (void)set: (CDVInvokedUrlCommand*)command
 {
-    NSString* replaceUserAgent = [command argumentAtIndex:0];
+    NSString* newUserAgent = [command argumentAtIndex:0];
     NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:replaceUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
-    [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
-        NSString* newUserAgent = [command argumentAtIndex:0];
-        self.webView.customUserAgent = newUserAgent;
-        [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
-        [CDVUserAgentUtil releaseLock:&lockToken];
+    // [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
+    //     NSString* newUserAgent = [command argumentAtIndex:0];
+    //     self.webView.customUserAgent = newUserAgent;
+    //     [CDVUserAgentUtil setUserAgent:newUserAgent lockToken:lockToken];
+    //     [CDVUserAgentUtil releaseLock:&lockToken];
         
-        NSString* callbackId = command.callbackId;
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-    }];
+    //     NSString* callbackId = command.callbackId;
+    //     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
+    //     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+    // }];
+    NSString* callbackId = command.callbackId;
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:newUserAgent];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
 
 - (void)reset: (CDVInvokedUrlCommand*)command
