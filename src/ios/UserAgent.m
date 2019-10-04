@@ -19,7 +19,7 @@
 - (void)set: (CDVInvokedUrlCommand*)command
 {
     NSString* newUserAgent = [command argumentAtIndex:0];
-    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:replaceUserAgent, @"UserAgent", nil];
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
     // [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
