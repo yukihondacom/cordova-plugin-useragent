@@ -5,7 +5,6 @@
 @interface UserAgent : CDVPlugin
 
 @property (nonatomic, strong) IBOutlet WKWebView* webView;
-// @property (nonatomic, strong) WKWebView* dummyWebView;
 
 - (void)get:(CDVInvokedUrlCommand*)command;
 
